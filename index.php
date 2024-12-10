@@ -28,7 +28,7 @@ $user_data = readCSV('user.csv');
 
 // Filter untuk tempat wisata di Jakarta
 $filtered_destinations = array_filter($destination_data, function($row) {
-    return isset($row[4]) && $row[4] === 'Jakarta'; // Misalkan kolom 4 adalah nama kota
+    return isset($row[4]) && $row[4] === 'Jakarta';
 });
 
 $places = [];
@@ -46,7 +46,6 @@ foreach ($filtered_destinations as $row) {
 }
 
 function generateTFIDF($places) {
-    // Tambahkan pembobotan yang lebih komprehensif
     $unique_categories = array_unique(array_column($places, 'category'));
     $document_count = count($places);
     $category_doc_frequency = array_count_values(array_column($places, 'category'));
@@ -62,7 +61,7 @@ function generateTFIDF($places) {
             $doc_with_category = isset($category_doc_frequency[$category]) ? $category_doc_frequency[$category] : 1;
             $idf = log($document_count / $doc_with_category);
             
-            // Gabungkan TF-IDF dengan faktor tambahan
+            //TF-IDF dengan faktor tambahan
             $additional_factors = [
                 'rating_weight' => $place['rating'] / 10,  // Normalisasi rating
                 'price_weight' => 1 / (1 + $place['price'])  // Inversi harga
@@ -84,7 +83,6 @@ function cosineSimilarity($matrix) {
     foreach ($matrix as $i => $vec1) {
         $similarity_matrix[$i] = [];
         foreach ($matrix as $j => $vec2) {
-            // Tambahkan mekanisme smoothing
             $epsilon = 1e-10;
             
             $dot_product = array_sum(array_map(function($a, $b) {
@@ -112,23 +110,23 @@ function getWeightedRecommendations($place_name, $places, $tfidf_matrix, $k = 10
     $cosine_sim_matrix = cosineSimilarity($tfidf_matrix);
     $similarities = $cosine_sim_matrix[$index];
 
-    // Dapatkan informasi tempat asal
+    // Informasi tempat asal
     $original_place = $places[$index];
     
     $weighted_scores = [];
     foreach ($similarities as $i => $score) {
         $current_place = $places[$i];
         
-        // Filter berdasarkan kriteria tambahan
+        // Filter
         $score_multipliers = [
-            // Prioritaskan rekomendasi dengan kategori mirip
+            // Pkategori mirip
             'category_match' => ($current_place['category'] === $original_place['category']) ? 1.5 : 1,
             
-            // Pertimbangkan rentang harga yang mirip
+            // rentang harga yang mirip
             'price_similarity' => 1 - abs($current_place['price'] - $original_place['price']) / 
                                    max($current_place['price'], $original_place['price'] + 1),
             
-            // Prioritaskan rating tinggi
+            // rating tinggi
             'rating_boost' => 1 + ($current_place['rating'] / 10)
         ];
         
