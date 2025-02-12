@@ -216,7 +216,7 @@ if (isset($_POST['selected_place'])) {
                         <div class="place-info">
                             <h3><?php echo htmlspecialchars($place['name']); ?></h3>
                             <h4><?php echo htmlspecialchars($place['category']); ?></h4>
-                            <p><?php echo htmlspecialchars(substr($place['desc'], 0, 100)) . '...'; ?></p>
+                            <p><?php echo htmlspecialchars(substr($place['desc'], 0, 75)) . '...'; ?></p>
                             <div class="place-meta">
                                 <span>💰 <?php echo number_format($place['price'], 0); ?> IDR</span>
                                 <span>⭐ <?php echo number_format($place['rating'], 1); ?></span>
