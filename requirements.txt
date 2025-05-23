@@ -1,0 +1,13 @@
+# filepath: c:\xampp\htdocs\Dashboard\Project\jakartourism-new\requirements.txt
+flask==2.0.1
+pandas==1.3.3
+scikit-learn==0.24.2
+numpy==1.21.2
+Werkzeug==2.0.1
+Jinja2==3.0.1
+itsdangerous==2.0.1
+click==8.0.1
+gunicorn==20.1.0
+whitenoise==6.2.0
+python-dotenv==0.19.2
+flask-compress==1.11

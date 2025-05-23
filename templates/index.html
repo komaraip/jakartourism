@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JakarTourism - Jakarta Tourism Recommendation</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+      crossorigin=""
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/custom-map.css') }}"
+    />
+
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='img/icon.jpg') }}"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+      <!-- Scroll progress indicator -->
+      <div class="scroll-progress-container">
+        <div class="scroll-progress-bar"></div>
+      </div>
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <div class="brand-content">
+            <img
+              src="{{ url_for('static', filename='img/icon.jpg') }}"
+              alt="JakarTourism"
+              class="navbar-logo"
+            />
+            <span>Jakar<span class="accent">Tourism</span></span>
+          </div>
+        </a>
+        <button
+          class="navbar-toggler custom-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <div class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Go to homepage"
+                ><i class="fas fa-home nav-icon"></i> Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#categories"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Explore destinations"
+                ><i class="fas fa-map-marker-alt nav-icon"></i> Destinations</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#about"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Learn about us"
+                ><i class="fas fa-info-circle nav-icon"></i> About Us</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <div class="container">
+        <h1>Discover Jakarta</h1>
+        <p>
+          Explore the best tourist destinations in Jakarta, curated just for you
+        </p>
+        <div class="search-box">
+          <div class="input-group">
+            <input
+              type="text"
+              id="searchInput"
+              class="form-control form-control-lg"
+              placeholder="Search for destinations..."
+            />
+            <button class="btn btn-primary" id="searchButton">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container text-center" id="categories">
+      <h2 class="mb-4">Jakarta Destinations</h2>
+      <div
+        class="category-filters d-flex justify-content-center flex-wrap"
+        id="categoryFilters"
+      >
+        <button class="btn btn-primary category-btn active" data-category="All">
+          All
+        </button>
+        {% for category in categories %}
+        <button
+          class="btn btn-outline-primary category-btn"
+          data-category="{{ category }}"
+        >
+          {{ category }}
+        </button>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="container" id="destinations">
+      <!-- <h2 class="mb-4">Top Destinations</h2> -->
+      <div class="row" id="placesContainer"></div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="placeDetailsModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="placeDetailsTitle"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div id="placeDetails">
+              <div class="loading-spinner">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            </div>
+            <div class="recommendations-section">
+              <h4 class="recommendation-title">
+                <i class="fas fa-compass"></i> Similar Places You Might Like
+              </h4>
+              <div id="recommendations">
+                <div class="loading-spinner">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-5" id="about">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h2>About JakarTourism</h2>
+          <p>
+            JakaTourism is your ultimate guide to exploring Jakarta, Indonesia's
+            vibrant capital city. We use advanced recommendation algorithms to
+            suggest places based on your preferences and similar attractions.
+          </p>
+          <p>
+            Our platform features comprehensive information about the best
+            tourist spots in Jakarta, from historical sites and cultural
+            landmarks to modern entertainment venues and natural attractions.
+          </p>
+          <p>
+            Whether you're a first-time visitor or a local looking to rediscover
+            Jakarta, our recommendations will help you create the perfect
+            itinerary for your Jakarta adventure.
+          </p>
+        </div>
+        <div class="col-lg-6">
+          <img
+            src="{{ url_for('static', filename='img/jakarta-banner.jpg') }}"
+            alt="Jakarta Tourism"
+            class="img-fluid rounded"
+          />
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="container text-center">
+        <div class="footer-content">
+          <div class="footer-logo-container">
+            <img
+              src="{{ url_for('static', filename='img/icon.jpg') }}"
+              alt="Jakarta Tourism"
+              class="footer-logo"
+            />
+          </div>
+          <h3 class="footer-title" style="color: var(--primary-color)">
+            Jakar<span style="color: var(--accent-color)">Tourism</span>
+          </h3>
+          <p class="footer-description">
+            Discover the best of Jakarta with our personalized tourism
+            recommendations. Explore the vibrant city today!
+          </p>
+          <p class="source-code-link">
+            <a href="https://github.com/komaraip/jakartourism">
+              <i class="fas fa-code"></i>
+              <span>Source Code Available on GitHub</span>
+            </a>
+          </p>
+          <div class="footer-divider"></div>
+          <p class="copyright">
+            &copy; 2025 JakarTourism. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script
+      src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+      integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+      crossorigin=""
+    ></script>
+    <script>
+      // Pass data from Flask to JavaScript
+      window.placesData = {{ places|tojson|safe }};
+    </script>
+    <script src="{{ url_for('static', filename='js/app-helpers.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>
