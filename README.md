@@ -73,6 +73,7 @@ jakartourism-v2/
 │   ├── requirements.txt          # Python dependencies
 │   ├── tourism_with_id.csv       # Destination dataset
 │   └── tourism_rating.csv        # Rating dataset
+│   └── user.csv                  # User dataset
 │
 ├── 📂 client/                    # React Frontend
 │   ├── index.html                # HTML entry point
