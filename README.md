@@ -386,7 +386,7 @@ This project is licensed under the MIT License.
 
 **Komara Indra Putra**
 
-- GitHub: [@username](https://github.com/username)
+- GitHub: [@komaraip](https://github.com/komaraip)
 
 ---
 
