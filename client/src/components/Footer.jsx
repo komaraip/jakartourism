@@ -15,7 +15,7 @@ const Footer = () => {
               ABOUT
             </a>
             <a href="#why-visit" className="text-black hover:underline underline-offset-4 decoration-2">
-              WHY_US
+              HIGHLIGHTS
             </a>
             <a href="#featured" className="text-black hover:underline underline-offset-4 decoration-2">
               FEATURED
@@ -37,10 +37,11 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs">
             <p className="text-black">
-              © 2026 JAKARTOURISM // MADE BY <span className="font-bold underline">KOMARAIP</span>
+              © 2026 JAKARTOURISM // MADE BY <a className="font-bold underline" href="https://komaraip.com">KOMARAIP</a>
             </p>
-            <p className="text-black">
-              JAKARTA_TOURISM_RECOMMENDATION_SYSTEM_V2.0
+            <p className="flex flex-wrap gap-2 text-black">
+              <a className="font-bold underline" href="https://github.com/komaraip/jakartourism">GITHUB</a>
+              <a className="font-bold underline" href="https://doi.org/10.1109/ICISS62896.2024.10751604">PUBLICATION</a>
             </p>
           </div>
         </div>

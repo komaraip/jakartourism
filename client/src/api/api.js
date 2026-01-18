@@ -53,6 +53,34 @@ export const getDetail = async (placeName) => {
 };
 
 /**
+ * Mengambil daftar kategori wisata dengan jumlah destinasi
+ */
+export const getCategories = async () => {
+  try {
+    const response = await api.get('/categories');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    throw error;
+  }
+};
+
+/**
+ * Mengambil daftar destinasi berdasarkan kategori
+ * @param {string} categoryName - Nama kategori
+ */
+export const getDestinationsByCategory = async (categoryName) => {
+  try {
+    const encodedName = encodeURIComponent(categoryName);
+    const response = await api.get(`/destinations/category/${encodedName}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching destinations by category:', error);
+    throw error;
+  }
+};
+
+/**
  * Format harga ke Rupiah Indonesia
  * @param {number} price - Harga dalam angka
  */

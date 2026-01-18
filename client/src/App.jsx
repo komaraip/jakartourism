@@ -4,12 +4,11 @@ import HeroSection from './components/sections/HeroSection';
 import AboutSection from './components/sections/AboutSection';
 import CategoriesSection from './components/sections/CategoriesSection';
 import FeaturedSection from './components/sections/FeaturedSection';
-import WhyVisitSection from './components/sections/WhyVisitSection';
+import HighlightSection from './components/sections/HighlightSection';
 import SearchSection from './components/sections/SearchSection';
 import Footer from './components/Footer';
 import Modal from './components/Modal';
 import DestinationDetail from './components/DestinationDetail';
-import RecommendationList from './components/RecommendationList';
 import { getDestinations, getRecommendations, getDetail } from './api/api';
 
 function App() {
@@ -19,7 +18,11 @@ function App() {
   const [isLoadingDestinations, setIsLoadingDestinations] = useState(true);
   const [isLoadingRecommendations, setIsLoadingRecommendations] = useState(false);
   const [error, setError] = useState(null);
+  
+  // Modal state for recommendation card clicks
+  const [modalDestination, setModalDestination] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoadingModal, setIsLoadingModal] = useState(false);
 
   // Load destinations on mount
   useEffect(() => {
@@ -40,12 +43,11 @@ function App() {
     loadDestinations();
   }, []);
 
-  // Handle destination selection - Opens modal
+  // Handle initial search - displays inline in SearchSection
   const handleSelectDestination = async (placeName) => {
     try {
       setIsLoadingRecommendations(true);
       setError(null);
-      setIsModalOpen(true);
 
       // Fetch destination detail
       const detail = await getDetail(placeName);
@@ -55,6 +57,14 @@ function App() {
       const recData = await getRecommendations(placeName);
       setRecommendations(recData.recommendations);
 
+      // Scroll to results
+      setTimeout(() => {
+        const resultsSection = document.getElementById('search-results');
+        if (resultsSection) {
+          resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+
     } catch (err) {
       setError('Failed to load recommendations. Please try again.');
       console.error(err);
@@ -63,9 +73,29 @@ function App() {
     }
   };
 
+  // Handle recommendation card click - opens modal
+  const handleRecommendationClick = async (placeName) => {
+    try {
+      setIsModalOpen(true);
+      setIsLoadingModal(true);
+      setError(null);
+
+      // Fetch destination detail for modal
+      const detail = await getDetail(placeName);
+      setModalDestination(detail);
+
+    } catch (err) {
+      setError('Failed to load destination details.');
+      console.error(err);
+    } finally {
+      setIsLoadingModal(false);
+    }
+  };
+
   // Close modal
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setModalDestination(null);
   };
 
   return (
@@ -80,83 +110,40 @@ function App() {
       <AboutSection />
 
       {/* Why Visit Section */}
-      <WhyVisitSection />
+      <HighlightSection />
 
       {/* Featured Destinations */}
       <FeaturedSection 
         destinations={destinations} 
-        onCardClick={handleSelectDestination}
+        onCardClick={handleRecommendationClick}
       />
 
       {/* Categories Section */}
-      <CategoriesSection />
+      <CategoriesSection onDestinationClick={handleRecommendationClick} />
 
-      {/* Search Section */}
+      {/* Search Section - passes different handler for recommendation clicks */}
       <SearchSection
         destinations={destinations}
-        selectedDestination={null}
-        recommendations={[]}
+        selectedDestination={selectedDestination}
+        recommendations={recommendations}
         isLoadingDestinations={isLoadingDestinations}
-        isLoadingRecommendations={false}
+        isLoadingRecommendations={isLoadingRecommendations}
         onSelectDestination={handleSelectDestination}
+        onRecommendationClick={handleRecommendationClick}
       />
 
-      {/* Destination Modal */}
+      {/* Destination Modal - for recommendation card clicks */}
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        {isLoadingRecommendations ? (
+        {isLoadingModal ? (
           <div className="flex items-center justify-center py-16">
             <div className="text-center">
               <div className="spinner-brutal mx-auto mb-4"></div>
               <p className="font-mono text-black">LOADING_DESTINATION...</p>
             </div>
           </div>
-        ) : (
-          <>
-            {/* Destination Detail */}
-            {selectedDestination && (
-              <DestinationDetail destination={selectedDestination} />
-            )}
-
-            {/* Similar Recommendations */}
-            {recommendations.length > 0 && (
-              <div className="mt-8 pt-8 border-t-3 border-black">
-                <div className="brutal-label mb-4">
-                  SIMILAR_DESTINATIONS
-                </div>
-                <h3 className="text-brutal-headline text-xl md:text-2xl text-black mb-6">
-                  YOU MIGHT ALSO LIKE //
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {recommendations.slice(0, 6).map((dest, index) => (
-                    <div 
-                      key={dest.Place_Id}
-                      onClick={() => handleSelectDestination(dest.Place_Name)}
-                      className="brutal-card p-4 cursor-pointer"
-                      style={{ 
-                        opacity: 0,
-                        animation: `fadeIn 0.3s ease forwards`,
-                        animationDelay: `${index * 0.1}s`
-                      }}
-                    >
-                      <div className="flex items-start justify-between mb-2">
-                        <span className="badge-brutal text-xs">{dest.Category}</span>
-                        <span className="font-mono text-xs text-brutal-blue">
-                          {Math.round(dest.Similarity_Score * 100)}%
-                        </span>
-                      </div>
-                      <h4 className="font-heading font-bold text-sm text-black uppercase line-clamp-2">
-                        {dest.Place_Name}
-                      </h4>
-                      <div className="flex items-center gap-2 mt-2">
-                        <span className="font-mono text-xs text-black">★ {dest.Rating}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </>
-        )}
+        ) : modalDestination ? (
+          <DestinationDetail destination={modalDestination} />
+        ) : null}
       </Modal>
 
       {/* Error Toast */}

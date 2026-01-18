@@ -88,9 +88,40 @@ async def root():
         "message": "Selamat datang di API Sistem Rekomendasi Wisata Jakarta",
         "endpoints": {
             "/destinations": "Daftar semua destinasi wisata Jakarta",
+            "/categories": "Daftar kategori wisata dengan jumlah destinasi",
             "/recommend/{place_name}": "Rekomendasi 10 destinasi serupa",
             "/detail/{place_name}": "Detail lengkap destinasi"
         }
+    }
+
+@app.get("/categories")
+async def get_categories():
+    """Get all unique categories with their destination counts and average ratings"""
+    if destination_df is None:
+        raise HTTPException(status_code=500, detail="Data belum dimuat")
+    
+    # Group by category and calculate count and average rating
+    category_stats = destination_df.groupby('Category').agg({
+        'Place_Id': 'count',
+        'Rating': 'mean'
+    }).reset_index()
+    category_stats.columns = ['Category', 'count', 'avg_rating']
+    
+    categories = []
+    for _, row in category_stats.iterrows():
+        categories.append({
+            "id": row['Category'].lower().replace(" ", "-"),
+            "name": row['Category'],
+            "count": int(row['count']),
+            "avg_rating": round(float(row['avg_rating']), 1) if pd.notna(row['avg_rating']) else 0
+        })
+    
+    # Sort by count descending
+    categories.sort(key=lambda x: x['count'], reverse=True)
+    
+    return {
+        "total": len(categories),
+        "categories": categories
     }
 
 @app.get("/destinations")
@@ -99,9 +130,57 @@ async def get_destinations():
     if destination_df is None:
         raise HTTPException(status_code=500, detail="Data belum dimuat")
     
-    destinations = destination_df[['Place_Id', 'Place_Name', 'Category', 'Rating', 'Price']].to_dict('records')
+    # Include Description field for destination cards
+    destinations = []
+    for _, row in destination_df.iterrows():
+        destinations.append({
+            "Place_Id": int(row['Place_Id']),
+            "Place_Name": row['Place_Name'],
+            "Category": row['Category'],
+            "Description": row['Description'] if pd.notna(row['Description']) else "",
+            "Rating": float(row['Rating']) if pd.notna(row['Rating']) else 0,
+            "Price": int(row['Price']) if pd.notna(row['Price']) else 0
+        })
     
     return {
+        "total": len(destinations),
+        "destinations": destinations
+    }
+
+@app.get("/destinations/category/{category_name}")
+async def get_destinations_by_category(category_name: str):
+    """Get all destinations for a specific category"""
+    if destination_df is None:
+        raise HTTPException(status_code=500, detail="Data belum dimuat")
+    
+    # Decode URL-encoded category name
+    category_name = unquote(category_name)
+    
+    # Filter by category (case-insensitive)
+    filtered = destination_df[destination_df['Category'].str.lower() == category_name.lower()]
+    
+    if filtered.empty:
+        raise HTTPException(
+            status_code=404, 
+            detail=f"Kategori '{category_name}' tidak ditemukan"
+        )
+    
+    destinations = []
+    for _, row in filtered.iterrows():
+        destinations.append({
+            "Place_Id": int(row['Place_Id']),
+            "Place_Name": row['Place_Name'],
+            "Category": row['Category'],
+            "Description": row['Description'] if pd.notna(row['Description']) else "",
+            "Rating": float(row['Rating']) if pd.notna(row['Rating']) else 0,
+            "Price": int(row['Price']) if pd.notna(row['Price']) else 0
+        })
+    
+    # Sort by rating descending
+    destinations.sort(key=lambda x: x['Rating'], reverse=True)
+    
+    return {
+        "category": category_name,
         "total": len(destinations),
         "destinations": destinations
     }

@@ -8,7 +8,8 @@ const SearchSection = ({
   recommendations, 
   isLoadingDestinations,
   isLoadingRecommendations,
-  onSelectDestination 
+  onSelectDestination,
+  onRecommendationClick 
 }) => {
   return (
     <section id="search" className="bg-surface-50">
@@ -20,7 +21,7 @@ const SearchSection = ({
           {/* Section Header */}
           <div className="text-center mb-12">
             <div className="brutal-label mx-auto mb-6">
-              SEARCH // TERMINAL
+              SEARCH //
             </div>
             <h2 className="text-brutal-headline text-4xl md:text-5xl lg:text-6xl text-black mb-4">
               INPUT
@@ -45,7 +46,7 @@ const SearchSection = ({
             {/* Window Content */}
             <div className="p-6">
               <div className="font-mono text-sm text-black mb-4">
-                <span className="text-brutal-blue">root@jkt-recs</span>
+                <span className="text-brutal-blue">root@jakartourism</span>
                 <span className="text-black">:</span>
                 <span className="text-brutal-orange">~</span>
                 <span className="text-black">$ find_destination</span>
@@ -94,12 +95,12 @@ const SearchSection = ({
               </div>
             )}
 
-            {/* Recommendations */}
+            {/* Recommendations - uses onRecommendationClick for modal */}
             {!isLoadingRecommendations && recommendations.length > 0 && (
               <div className="mt-8">
                 <RecommendationList 
                   recommendations={recommendations} 
-                  onCardClick={onSelectDestination}
+                  onCardClick={onRecommendationClick}
                   isLoading={false}
                 />
               </div>

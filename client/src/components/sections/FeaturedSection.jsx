@@ -1,10 +1,10 @@
 import DestinationCard from '../DestinationCard';
 
 const FeaturedSection = ({ destinations, onCardClick }) => {
-  // Get top 8 destinations by rating for horizontal scroll
+  // Get top 4 destinations by rating
   const featuredDestinations = destinations
     .sort((a, b) => b.Rating - a.Rating)
-    .slice(0, 8);
+    .slice(0, 4);
 
   return (
     <section id="featured" className="bg-surface-50">
@@ -17,7 +17,7 @@ const FeaturedSection = ({ destinations, onCardClick }) => {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
             <div>
               <div className="brutal-label mb-4">
-                POPULAR // POPULER
+                POPULAR //
               </div>
               <h2 className="text-brutal-headline text-4xl md:text-5xl lg:text-6xl text-black mb-3">
                 TRENDING NOW //
@@ -31,20 +31,19 @@ const FeaturedSection = ({ destinations, onCardClick }) => {
               onClick={() => document.getElementById('search')?.scrollIntoView({ behavior: 'smooth' })}
               className="brutal-btn brutal-btn-white"
             >
-              VIEW ALL
+              EXPLORE ALL
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </button>
           </div>
 
-          {/* Horizontal Scroll Container */}
+          {/* 4-Card Grid */}
           {featuredDestinations.length > 0 ? (
-            <div className="horizontal-scroll pb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {featuredDestinations.map((dest, index) => (
                 <div 
                   key={dest.Place_Id}
-                  className="flex-shrink-0 w-[300px] sm:w-[340px]"
                   style={{ 
                     opacity: 0,
                     animation: `fadeIn 0.5s ease forwards`,
@@ -54,6 +53,7 @@ const FeaturedSection = ({ destinations, onCardClick }) => {
                   <DestinationCard 
                     destination={dest} 
                     onClick={onCardClick}
+                    compact={true}
                   />
                 </div>
               ))}
@@ -64,14 +64,6 @@ const FeaturedSection = ({ destinations, onCardClick }) => {
               <p className="font-mono text-black">LOADING_DESTINATIONS...</p>
             </div>
           )}
-
-          {/* Scroll Hint */}
-          <div className="flex items-center justify-center gap-2 mt-6 font-mono text-sm text-black opacity-50">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-            SCROLL TO EXPLORE
-          </div>
         </div>
       </div>
     </section>

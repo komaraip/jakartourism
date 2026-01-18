@@ -23,7 +23,7 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-8">
             <button 
               onClick={() => scrollToSection('about')}
               className="text-black font-semibold hover:underline underline-offset-4 decoration-2 transition-all"
@@ -34,7 +34,7 @@ const Navbar = () => {
               onClick={() => scrollToSection('why-visit')}
               className="text-black font-semibold hover:underline underline-offset-4 decoration-2 transition-all"
             >
-              Why Us
+              Highlights
             </button>
             <button 
               onClick={() => scrollToSection('featured')}
@@ -62,7 +62,7 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 border-2 border-black bg-white hover:bg-brutal-yellow transition-colors"
+            className="lg:hidden p-2 border-2 border-black bg-white hover:bg-brutal-yellow transition-colors"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
               {isMenuOpen ? (
@@ -76,7 +76,7 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t-3 border-black">
+          <div className="lg:hidden py-4 border-t-3 border-black">
             <div className="flex flex-col gap-2">
               <button 
                 onClick={() => scrollToSection('about')}
@@ -88,7 +88,7 @@ const Navbar = () => {
                 onClick={() => scrollToSection('why-visit')}
                 className="text-left px-4 py-3 text-black font-semibold border-2 border-black bg-white hover:bg-brutal-yellow transition-colors"
               >
-                Why Us
+                Highlights
               </button>
               <button 
                 onClick={() => scrollToSection('featured')}
