@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
-import HeroSection from './components/HeroSection';
+import HeroSection from './components/sections/HeroSection';
 import AboutSection from './components/sections/AboutSection';
 import CategoriesSection from './components/sections/CategoriesSection';
 import FeaturedSection from './components/sections/FeaturedSection';
