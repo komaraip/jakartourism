@@ -6,13 +6,13 @@ const RecommendationList = ({ recommendations, onCardClick, isLoading }) => {
       <section className="px-4 py-10 max-w-6xl mx-auto">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-1.5 h-10 accent-bar rounded-full"></div>
-          <h2 className="font-heading text-2xl font-bold text-charcoal">Rekomendasi Serupa</h2>
+          <h2 className="font-heading text-2xl font-bold text-charcoal dark:text-white transition-colors">Rekomendasi Serupa</h2>
         </div>
         
         <div className="flex items-center justify-center py-16">
           <div className="text-center">
             <div className="spinner mx-auto mb-4"></div>
-            <p className="text-warmgray font-medium">Mencari rekomendasi...</p>
+            <p className="text-warmgray dark:text-warmgray-light font-medium">Mencari rekomendasi...</p>
           </div>
         </div>
       </section>
@@ -28,12 +28,12 @@ const RecommendationList = ({ recommendations, onCardClick, isLoading }) => {
       {/* Section Header */}
       <div className="flex items-center gap-3 mb-6">
         <div className="w-1.5 h-10 accent-bar rounded-full"></div>
-        <h2 className="font-heading text-2xl font-bold text-charcoal">Rekomendasi Serupa</h2>
+        <h2 className="font-heading text-2xl font-bold text-charcoal dark:text-white transition-colors">Rekomendasi Serupa</h2>
       </div>
 
       {/* Description */}
-      <p className="text-warmgray mb-8 max-w-2xl">
-        Berikut adalah <span className="text-charcoal font-semibold">{recommendations.length} destinasi wisata</span> yang 
+      <p className="text-warmgray dark:text-warmgray-light mb-8 max-w-2xl">
+        Berikut adalah <span className="text-charcoal dark:text-white font-semibold">{recommendations.length} destinasi wisata</span> yang 
         mirip berdasarkan kategori yang sama. Klik untuk melihat detail dan rekomendasi lainnya.
       </p>
 

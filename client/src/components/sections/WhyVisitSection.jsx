@@ -48,39 +48,39 @@ const reasons = [
 const colorClasses = {
   primary: {
     bg: 'bg-primary-500',
-    light: 'bg-primary-50',
+    light: 'bg-primary-50 dark:bg-primary-900/30',
     text: 'text-primary-500'
   },
   secondary: {
     bg: 'bg-secondary-500',
-    light: 'bg-secondary-50',
+    light: 'bg-secondary-50 dark:bg-secondary-900/30',
     text: 'text-secondary-500'
   },
   accent: {
     bg: 'bg-accent-400',
-    light: 'bg-amber-50',
+    light: 'bg-amber-50 dark:bg-amber-900/30',
     text: 'text-amber-500'
   },
   green: {
     bg: 'bg-green-500',
-    light: 'bg-green-50',
+    light: 'bg-green-50 dark:bg-green-900/30',
     text: 'text-green-500'
   }
 };
 
 const WhyVisitSection = () => {
   return (
-    <section className="py-20 px-4 bg-surface-50">
+    <section className="py-20 px-4 bg-surface-50 dark:bg-dark-50 transition-colors duration-300">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-14">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="w-12 h-1.5 accent-bar rounded-full"></div>
           </div>
-          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-charcoal mb-4">
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-charcoal dark:text-white mb-4 transition-colors">
             Mengapa Harus ke Jakarta?
           </h2>
-          <p className="text-warmgray text-lg max-w-2xl mx-auto">
+          <p className="text-warmgray dark:text-warmgray-light text-lg max-w-2xl mx-auto">
             Jakarta menawarkan pengalaman yang tak terlupakan untuk setiap pengunjung
           </p>
         </div>
@@ -104,10 +104,10 @@ const WhyVisitSection = () => {
                 </div>
 
                 {/* Content */}
-                <h3 className="font-heading font-bold text-xl text-charcoal mb-3">
+                <h3 className="font-heading font-bold text-xl text-charcoal dark:text-white mb-3 transition-colors">
                   {reason.title}
                 </h3>
-                <p className="text-warmgray text-sm leading-relaxed">
+                <p className="text-warmgray dark:text-warmgray-light text-sm leading-relaxed">
                   {reason.description}
                 </p>
               </div>

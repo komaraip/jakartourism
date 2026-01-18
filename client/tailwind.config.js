@@ -4,6 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -56,6 +57,13 @@ export default {
           200: '#F1F5F9',     // Soft Gray
           300: '#E2E8F0',
         },
+        // Dark mode surfaces
+        dark: {
+          50: '#1E293B',
+          100: '#0F172A',
+          200: '#0B1120',
+          300: '#060A14',
+        },
         charcoal: {
           DEFAULT: '#1E293B', // Deep Text
           light: '#334155',
@@ -77,6 +85,9 @@ export default {
         'soft-xl': '0 25px 50px -12px rgba(236, 72, 153, 0.2)',
         'glow-pink': '0 0 30px rgba(236, 72, 153, 0.3)',
         'glow-cyan': '0 0 30px rgba(6, 182, 212, 0.3)',
+        // Dark mode shadows
+        'dark-soft': '0 2px 15px -3px rgba(0, 0, 0, 0.3), 0 10px 20px -2px rgba(0, 0, 0, 0.2)',
+        'dark-soft-lg': '0 10px 40px -10px rgba(0, 0, 0, 0.4), 0 20px 25px -5px rgba(0, 0, 0, 0.3)',
       },
       borderRadius: {
         '2xl': '1rem',

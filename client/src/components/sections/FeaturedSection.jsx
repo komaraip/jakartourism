@@ -7,7 +7,7 @@ const FeaturedSection = ({ destinations, onCardClick }) => {
     .slice(0, 6);
 
   return (
-    <section id="featured" className="py-20 px-4 bg-white">
+    <section id="featured" className="py-20 px-4 bg-white dark:bg-dark-100 transition-colors duration-300">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
@@ -16,17 +16,17 @@ const FeaturedSection = ({ destinations, onCardClick }) => {
               <div className="w-1.5 h-10 accent-bar rounded-full"></div>
               <span className="text-sm font-semibold text-primary-500 uppercase tracking-wider">Populer</span>
             </div>
-            <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-charcoal mb-3">
+            <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-charcoal dark:text-white mb-3 transition-colors">
               Destinasi Favorit
             </h2>
-            <p className="text-warmgray text-lg max-w-xl">
+            <p className="text-warmgray dark:text-warmgray-light text-lg max-w-xl">
               Destinasi wisata dengan rating tertinggi yang wajib Anda kunjungi di Jakarta
             </p>
           </div>
 
           <button 
             onClick={() => document.getElementById('search')?.scrollIntoView({ behavior: 'smooth' })}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-surface-100 hover:bg-surface-200 text-charcoal font-semibold rounded-xl transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-surface-100 dark:bg-dark-50 hover:bg-surface-200 dark:hover:bg-charcoal-light text-charcoal dark:text-white font-semibold rounded-xl transition-colors"
           >
             Lihat Semua
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -57,7 +57,7 @@ const FeaturedSection = ({ destinations, onCardClick }) => {
         ) : (
           <div className="text-center py-16">
             <div className="spinner mx-auto mb-4"></div>
-            <p className="text-warmgray">Memuat destinasi...</p>
+            <p className="text-warmgray dark:text-warmgray-light">Memuat destinasi...</p>
           </div>
         )}
       </div>

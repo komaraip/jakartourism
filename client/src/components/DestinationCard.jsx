@@ -26,32 +26,32 @@ const DestinationCard = ({ destination, onClick }) => {
         
         {/* Similarity Score (if available) */}
         {destination.Similarity_Score !== undefined && (
-          <span className="text-xs font-semibold text-secondary-600 bg-secondary-50 px-2.5 py-1 rounded-full">
+          <span className="text-xs font-semibold text-secondary-600 dark:text-secondary-400 bg-secondary-50 dark:bg-secondary-900/30 px-2.5 py-1 rounded-full">
             {Math.round(destination.Similarity_Score * 100)}% mirip
           </span>
         )}
       </div>
 
       {/* Place Name */}
-      <h3 className="font-heading text-lg font-bold text-charcoal mb-3 line-clamp-2 group-hover:text-primary-500 transition-colors duration-200">
+      <h3 className="font-heading text-lg font-bold text-charcoal dark:text-white mb-3 line-clamp-2 group-hover:text-primary-500 transition-colors duration-200">
         {destination.Place_Name}
       </h3>
 
       {/* Description Preview */}
       {destination.Description && (
-        <p className="text-sm text-warmgray mb-4 line-clamp-2 leading-relaxed">
+        <p className="text-sm text-warmgray dark:text-warmgray-light mb-4 line-clamp-2 leading-relaxed">
           {destination.Description}
         </p>
       )}
 
       {/* Footer - Rating & Price */}
-      <div className="flex items-center justify-between pt-3 border-t border-primary-50">
+      <div className="flex items-center justify-between pt-3 border-t border-primary-50 dark:border-gray-700">
         {/* Rating */}
         <div className="flex items-center gap-1.5">
           <svg className="w-4 h-4 text-accent-400" fill="currentColor" viewBox="0 0 20 20">
             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
           </svg>
-          <span className="text-sm font-semibold text-charcoal">{destination.Rating}</span>
+          <span className="text-sm font-semibold text-charcoal dark:text-white">{destination.Rating}</span>
         </div>
 
         {/* Price */}

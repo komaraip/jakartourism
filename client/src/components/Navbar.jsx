@@ -23,32 +23,32 @@ const Navbar = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </div>
-            <span className="font-heading font-bold text-xl gradient-text">Wisata Jakarta</span>
+            <span className="font-heading font-bold text-xl gradient-text">Jakartourism</span>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             <button 
               onClick={() => scrollToSection('hero')}
-              className="text-warmgray hover:text-primary-500 font-medium transition-colors"
+              className="text-warmgray dark:text-warmgray-light hover:text-primary-500 font-medium transition-colors"
             >
               Beranda
             </button>
             <button 
               onClick={() => scrollToSection('about')}
-              className="text-warmgray hover:text-primary-500 font-medium transition-colors"
+              className="text-warmgray dark:text-warmgray-light hover:text-primary-500 font-medium transition-colors"
             >
               Tentang
             </button>
             <button 
               onClick={() => scrollToSection('categories')}
-              className="text-warmgray hover:text-primary-500 font-medium transition-colors"
+              className="text-warmgray dark:text-warmgray-light hover:text-primary-500 font-medium transition-colors"
             >
               Kategori
             </button>
             <button 
               onClick={() => scrollToSection('featured')}
-              className="text-warmgray hover:text-primary-500 font-medium transition-colors"
+              className="text-warmgray dark:text-warmgray-light hover:text-primary-500 font-medium transition-colors"
             >
               Destinasi
             </button>
@@ -63,7 +63,7 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-charcoal"
+            className="md:hidden p-2 text-charcoal dark:text-white"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isMenuOpen ? (
@@ -77,29 +77,29 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-primary-100">
+          <div className="md:hidden py-4 border-t border-primary-100 dark:border-gray-700">
             <div className="flex flex-col gap-3">
               <button 
                 onClick={() => scrollToSection('hero')}
-                className="text-left px-4 py-2 text-warmgray hover:text-primary-500 hover:bg-primary-50 rounded-lg font-medium transition-colors"
+                className="text-left px-4 py-2 text-warmgray dark:text-warmgray-light hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-dark-50 rounded-lg font-medium transition-colors"
               >
                 Beranda
               </button>
               <button 
                 onClick={() => scrollToSection('about')}
-                className="text-left px-4 py-2 text-warmgray hover:text-primary-500 hover:bg-primary-50 rounded-lg font-medium transition-colors"
+                className="text-left px-4 py-2 text-warmgray dark:text-warmgray-light hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-dark-50 rounded-lg font-medium transition-colors"
               >
                 Tentang
               </button>
               <button 
                 onClick={() => scrollToSection('categories')}
-                className="text-left px-4 py-2 text-warmgray hover:text-primary-500 hover:bg-primary-50 rounded-lg font-medium transition-colors"
+                className="text-left px-4 py-2 text-warmgray dark:text-warmgray-light hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-dark-50 rounded-lg font-medium transition-colors"
               >
                 Kategori
               </button>
               <button 
                 onClick={() => scrollToSection('featured')}
-                className="text-left px-4 py-2 text-warmgray hover:text-primary-500 hover:bg-primary-50 rounded-lg font-medium transition-colors"
+                className="text-left px-4 py-2 text-warmgray dark:text-warmgray-light hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-dark-50 rounded-lg font-medium transition-colors"
               >
                 Destinasi
               </button>

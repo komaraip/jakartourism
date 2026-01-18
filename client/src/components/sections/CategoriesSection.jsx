@@ -75,56 +75,56 @@ const categories = [
 
 const colorClasses = {
   primary: {
-    bg: 'bg-primary-50',
+    bg: 'bg-primary-50 dark:bg-primary-900/30',
     text: 'text-primary-500',
-    hover: 'hover:bg-primary-100',
-    border: 'group-hover:border-primary-200'
+    hover: 'hover:bg-primary-100 dark:hover:bg-primary-900/50',
+    border: 'group-hover:border-primary-200 dark:group-hover:border-primary-700'
   },
   secondary: {
-    bg: 'bg-secondary-50',
+    bg: 'bg-secondary-50 dark:bg-secondary-900/30',
     text: 'text-secondary-500',
-    hover: 'hover:bg-secondary-100',
-    border: 'group-hover:border-secondary-200'
+    hover: 'hover:bg-secondary-100 dark:hover:bg-secondary-900/50',
+    border: 'group-hover:border-secondary-200 dark:group-hover:border-secondary-700'
   },
   green: {
-    bg: 'bg-green-50',
+    bg: 'bg-green-50 dark:bg-green-900/30',
     text: 'text-green-500',
-    hover: 'hover:bg-green-100',
-    border: 'group-hover:border-green-200'
+    hover: 'hover:bg-green-100 dark:hover:bg-green-900/50',
+    border: 'group-hover:border-green-200 dark:group-hover:border-green-700'
   },
   emerald: {
-    bg: 'bg-emerald-50',
+    bg: 'bg-emerald-50 dark:bg-emerald-900/30',
     text: 'text-emerald-500',
-    hover: 'hover:bg-emerald-100',
-    border: 'group-hover:border-emerald-200'
+    hover: 'hover:bg-emerald-100 dark:hover:bg-emerald-900/50',
+    border: 'group-hover:border-emerald-200 dark:group-hover:border-emerald-700'
   },
   accent: {
-    bg: 'bg-amber-50',
+    bg: 'bg-amber-50 dark:bg-amber-900/30',
     text: 'text-amber-500',
-    hover: 'hover:bg-amber-100',
-    border: 'group-hover:border-amber-200'
+    hover: 'hover:bg-amber-100 dark:hover:bg-amber-900/50',
+    border: 'group-hover:border-amber-200 dark:group-hover:border-amber-700'
   },
   purple: {
-    bg: 'bg-purple-50',
+    bg: 'bg-purple-50 dark:bg-purple-900/30',
     text: 'text-purple-500',
-    hover: 'hover:bg-purple-100',
-    border: 'group-hover:border-purple-200'
+    hover: 'hover:bg-purple-100 dark:hover:bg-purple-900/50',
+    border: 'group-hover:border-purple-200 dark:group-hover:border-purple-700'
   }
 };
 
 const CategoriesSection = () => {
   return (
-    <section id="categories" className="py-20 px-4 bg-surface-50">
+    <section id="categories" className="py-20 px-4 bg-surface-50 dark:bg-dark-50 transition-colors duration-300">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-14">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="w-12 h-1.5 accent-bar rounded-full"></div>
           </div>
-          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-charcoal mb-4">
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-charcoal dark:text-white mb-4 transition-colors">
             Jelajahi Berdasarkan Kategori
           </h2>
-          <p className="text-warmgray text-lg max-w-2xl mx-auto">
+          <p className="text-warmgray dark:text-warmgray-light text-lg max-w-2xl mx-auto">
             Temukan destinasi wisata Jakarta berdasarkan minat dan preferensi Anda
           </p>
         </div>
@@ -147,14 +147,14 @@ const CategoriesSection = () => {
                   {/* Content */}
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
-                      <h3 className="font-heading font-bold text-lg text-charcoal group-hover:text-primary-500 transition-colors">
+                      <h3 className="font-heading font-bold text-lg text-charcoal dark:text-white group-hover:text-primary-500 transition-colors">
                         {category.name}
                       </h3>
                       <span className={`text-xs font-semibold px-2 py-1 rounded-full ${colors.bg} ${colors.text}`}>
                         {category.count}
                       </span>
                     </div>
-                    <p className="text-warmgray text-sm leading-relaxed">
+                    <p className="text-warmgray dark:text-warmgray-light text-sm leading-relaxed">
                       {category.description}
                     </p>
                   </div>

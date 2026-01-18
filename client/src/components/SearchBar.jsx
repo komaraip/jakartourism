@@ -115,7 +115,7 @@ const SearchBar = ({ destinations, onSelect, isLoading }) => {
           onKeyDown={handleKeyDown}
           onFocus={() => query.length > 0 && suggestions.length > 0 && setShowSuggestions(true)}
           placeholder="Cari destinasi wisata... (contoh: Taman Impian Jaya Ancol)"
-          className="w-full pl-14 pr-5 py-4 text-lg bg-white border-2 border-primary-100 rounded-2xl text-charcoal placeholder-warmgray-light focus-ring shadow-soft transition-all duration-300"
+          className="w-full pl-14 pr-5 py-4 text-lg bg-white dark:bg-dark-50 border-2 border-primary-100 dark:border-gray-700 rounded-2xl text-charcoal dark:text-white placeholder-warmgray-light dark:placeholder-warmgray focus-ring shadow-soft dark:shadow-dark-soft transition-all duration-300"
           disabled={isLoading}
         />
         {isLoading && (
@@ -129,7 +129,7 @@ const SearchBar = ({ destinations, onSelect, isLoading }) => {
       {showSuggestions && suggestions.length > 0 && (
         <div 
           ref={suggestionsRef}
-          className="absolute z-50 w-full mt-3 bg-white border border-primary-100 rounded-2xl shadow-soft-lg overflow-hidden"
+          className="absolute z-50 w-full mt-3 bg-white dark:bg-dark-50 border border-primary-100 dark:border-gray-700 rounded-2xl shadow-soft-lg dark:shadow-dark-soft-lg overflow-hidden"
         >
           <ul className="py-2 max-h-80 overflow-y-auto">
             {suggestions.map((dest, index) => (
@@ -138,17 +138,17 @@ const SearchBar = ({ destinations, onSelect, isLoading }) => {
                 onClick={() => handleSelect(dest)}
                 className={`px-5 py-3 cursor-pointer transition-colors duration-150 flex items-center justify-between ${
                   index === selectedIndex 
-                    ? 'bg-primary-50' 
-                    : 'hover:bg-surface-100'
+                    ? 'bg-primary-50 dark:bg-primary-900/30' 
+                    : 'hover:bg-surface-100 dark:hover:bg-dark-100'
                 }`}
               >
                 <div className="flex-1">
-                  <div className="text-charcoal font-semibold">{dest.Place_Name}</div>
+                  <div className="text-charcoal dark:text-white font-semibold">{dest.Place_Name}</div>
                   <div className="flex items-center gap-2 mt-1">
                     <span className={`text-xs px-2 py-0.5 rounded-full text-white ${getCategoryBadgeClass(dest.Category)}`}>
                       {dest.Category}
                     </span>
-                    <span className="text-sm text-warmgray flex items-center gap-1">
+                    <span className="text-sm text-warmgray dark:text-warmgray-light flex items-center gap-1">
                       <svg className="w-3 h-3 text-accent-400" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>
@@ -163,7 +163,7 @@ const SearchBar = ({ destinations, onSelect, isLoading }) => {
       )}
 
       {/* Helper Text */}
-      <p className="mt-4 text-sm text-warmgray text-center">
+      <p className="mt-4 text-sm text-warmgray dark:text-warmgray-light text-center">
         Pilih destinasi wisata untuk melihat rekomendasi serupa
       </p>
     </div>
