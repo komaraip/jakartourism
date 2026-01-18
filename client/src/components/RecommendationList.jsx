@@ -4,15 +4,14 @@ const RecommendationList = ({ recommendations, onCardClick, isLoading }) => {
   if (isLoading) {
     return (
       <section className="px-4 py-10 max-w-6xl mx-auto">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-1.5 h-10 accent-bar rounded-full"></div>
-          <h2 className="font-heading text-2xl font-bold text-charcoal dark:text-white transition-colors">Rekomendasi Serupa</h2>
+        <div className="brutal-label mb-6">
+          SIMILAR_RECOMMENDATIONS
         </div>
         
         <div className="flex items-center justify-center py-16">
           <div className="text-center">
-            <div className="spinner mx-auto mb-4"></div>
-            <p className="text-warmgray dark:text-warmgray-light font-medium">Mencari rekomendasi...</p>
+            <div className="spinner-brutal mx-auto mb-4"></div>
+            <p className="font-mono text-black">SEARCHING_DATABASE...</p>
           </div>
         </div>
       </section>
@@ -26,15 +25,17 @@ const RecommendationList = ({ recommendations, onCardClick, isLoading }) => {
   return (
     <section className="px-4 py-10 max-w-6xl mx-auto">
       {/* Section Header */}
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-1.5 h-10 accent-bar rounded-full"></div>
-        <h2 className="font-heading text-2xl font-bold text-charcoal dark:text-white transition-colors">Rekomendasi Serupa</h2>
+      <div className="brutal-label mb-4">
+        SIMILAR_RECOMMENDATIONS
       </div>
+      
+      <h2 className="text-brutal-headline text-2xl md:text-3xl text-black mb-4">
+        YOU MIGHT ALSO LIKE //
+      </h2>
 
       {/* Description */}
-      <p className="text-warmgray dark:text-warmgray-light mb-8 max-w-2xl">
-        Berikut adalah <span className="text-charcoal dark:text-white font-semibold">{recommendations.length} destinasi wisata</span> yang 
-        mirip berdasarkan kategori yang sama. Klik untuk melihat detail dan rekomendasi lainnya.
+      <p className="font-mono text-black mb-8 max-w-2xl opacity-80">
+        FOUND <span className="font-bold text-brutal-blue">{recommendations.length}</span> SIMILAR DESTINATIONS BASED ON CATEGORY MATCH.
       </p>
 
       {/* Grid of Cards */}

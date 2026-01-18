@@ -76,33 +76,21 @@ const SearchBar = ({ destinations, onSelect, isLoading }) => {
     onSelect(destination.Place_Name);
   };
 
-  const getCategoryBadgeClass = (category) => {
-    const categoryMap = {
-      'Budaya': 'badge-budaya',
-      'Taman Hiburan': 'badge-taman-hiburan',
-      'Bahari': 'badge-bahari',
-      'Cagar Alam': 'badge-cagar-alam',
-      'Pusat Perbelanjaan': 'badge-pusat-perbelanjaan',
-      'Tempat Ibadah': 'badge-tempat-ibadah',
-    };
-    return categoryMap[category] || 'badge-default';
-  };
-
   return (
     <div className="relative w-full">
       {/* Search Input */}
       <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
           <svg 
-            className="w-5 h-5 text-primary-400" 
+            className="w-5 h-5 text-black" 
             fill="none" 
             stroke="currentColor" 
+            strokeWidth={2.5}
             viewBox="0 0 24 24"
           >
             <path 
               strokeLinecap="round" 
               strokeLinejoin="round" 
-              strokeWidth={2} 
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" 
             />
           </svg>
@@ -114,13 +102,13 @@ const SearchBar = ({ destinations, onSelect, isLoading }) => {
           onChange={(e) => handleQueryChange(e.target.value)}
           onKeyDown={handleKeyDown}
           onFocus={() => query.length > 0 && suggestions.length > 0 && setShowSuggestions(true)}
-          placeholder="Cari destinasi wisata... (contoh: Taman Impian Jaya Ancol)"
-          className="w-full pl-14 pr-5 py-4 text-lg bg-white dark:bg-dark-50 border-2 border-primary-100 dark:border-gray-700 rounded-2xl text-charcoal dark:text-white placeholder-warmgray-light dark:placeholder-warmgray focus-ring shadow-soft dark:shadow-dark-soft transition-all duration-300"
+          placeholder="Where to next?"
+          className="brutal-input pl-12 font-mono"
           disabled={isLoading}
         />
         {isLoading && (
-          <div className="absolute inset-y-0 right-0 pr-5 flex items-center">
-            <div className="spinner w-5 h-5"></div>
+          <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
+            <div className="spinner-brutal w-5 h-5"></div>
           </div>
         )}
       </div>
@@ -129,43 +117,41 @@ const SearchBar = ({ destinations, onSelect, isLoading }) => {
       {showSuggestions && suggestions.length > 0 && (
         <div 
           ref={suggestionsRef}
-          className="absolute z-50 w-full mt-3 bg-white dark:bg-dark-50 border border-primary-100 dark:border-gray-700 rounded-2xl shadow-soft-lg dark:shadow-dark-soft-lg overflow-hidden"
+          className="absolute z-50 w-full mt-2 bg-white border-3 border-black shadow-brutal overflow-hidden"
         >
-          <ul className="py-2 max-h-80 overflow-y-auto">
+          <ul className="max-h-80 overflow-y-auto">
             {suggestions.map((dest, index) => (
               <li
                 key={dest.Place_Id}
                 onClick={() => handleSelect(dest)}
-                className={`px-5 py-3 cursor-pointer transition-colors duration-150 flex items-center justify-between ${
+                className={`px-4 py-3 cursor-pointer transition-colors border-b-2 border-black last:border-b-0 flex items-center justify-between ${
                   index === selectedIndex 
-                    ? 'bg-primary-50 dark:bg-primary-900/30' 
-                    : 'hover:bg-surface-100 dark:hover:bg-dark-100'
+                    ? 'bg-brutal-yellow' 
+                    : 'hover:bg-gray-100'
                 }`}
               >
                 <div className="flex-1">
-                  <div className="text-charcoal dark:text-white font-semibold">{dest.Place_Name}</div>
+                  <div className="font-heading font-bold text-black uppercase">{dest.Place_Name}</div>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className={`text-xs px-2 py-0.5 rounded-full text-white ${getCategoryBadgeClass(dest.Category)}`}>
+                    <span className="badge-brutal text-xs">
                       {dest.Category}
                     </span>
-                    <span className="text-sm text-warmgray dark:text-warmgray-light flex items-center gap-1">
-                      <svg className="w-3 h-3 text-accent-400" fill="currentColor" viewBox="0 0 20 20">
+                    <span className="font-mono text-sm text-black flex items-center gap-1">
+                      <svg className="w-3 h-3 text-brutal-orange" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>
                       {dest.Rating}
                     </span>
                   </div>
                 </div>
+                <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
               </li>
             ))}
           </ul>
         </div>
       )}
-
-      {/* Helper Text */}
-      <p className="mt-4 text-sm text-warmgray dark:text-warmgray-light text-center">
-        Pilih destinasi wisata untuk melihat rekomendasi serupa
-      </p>
     </div>
   );
 };

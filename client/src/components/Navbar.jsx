@@ -12,64 +12,63 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-tropical">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b-4 border-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl accent-bar flex items-center justify-center">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </div>
-            <span className="font-heading font-bold text-xl gradient-text">Jakartourism</span>
+          <div className="flex items-center">
+            <span className="font-heading font-black text-2xl tracking-tight text-black">
+              JAKARTOURISM
+            </span>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             <button 
-              onClick={() => scrollToSection('hero')}
-              className="text-warmgray dark:text-warmgray-light hover:text-primary-500 font-medium transition-colors"
-            >
-              Beranda
-            </button>
-            <button 
               onClick={() => scrollToSection('about')}
-              className="text-warmgray dark:text-warmgray-light hover:text-primary-500 font-medium transition-colors"
+              className="text-black font-semibold hover:underline underline-offset-4 decoration-2 transition-all"
             >
-              Tentang
+              About
             </button>
             <button 
-              onClick={() => scrollToSection('categories')}
-              className="text-warmgray dark:text-warmgray-light hover:text-primary-500 font-medium transition-colors"
+              onClick={() => scrollToSection('why-visit')}
+              className="text-black font-semibold hover:underline underline-offset-4 decoration-2 transition-all"
             >
-              Kategori
+              Why Us
             </button>
             <button 
               onClick={() => scrollToSection('featured')}
-              className="text-warmgray dark:text-warmgray-light hover:text-primary-500 font-medium transition-colors"
+              className="text-black font-semibold hover:underline underline-offset-4 decoration-2 transition-all"
             >
-              Destinasi
+              Featured
+            </button>
+            <button 
+              onClick={() => scrollToSection('categories')}
+              className="text-black font-semibold hover:underline underline-offset-4 decoration-2 transition-all"
+            >
+              Categories
             </button>
             <button 
               onClick={() => scrollToSection('search')}
-              className="px-5 py-2.5 btn-tropical text-white font-semibold rounded-xl"
+              className="brutal-btn brutal-btn-blue"
             >
-              Cari Wisata
+              START
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
             </button>
           </div>
 
           {/* Mobile Menu Button */}
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-charcoal dark:text-white"
+            className="md:hidden p-2 border-2 border-black bg-white hover:bg-brutal-yellow transition-colors"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
               {isMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
               )}
             </svg>
           </button>
@@ -77,37 +76,40 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-primary-100 dark:border-gray-700">
-            <div className="flex flex-col gap-3">
-              <button 
-                onClick={() => scrollToSection('hero')}
-                className="text-left px-4 py-2 text-warmgray dark:text-warmgray-light hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-dark-50 rounded-lg font-medium transition-colors"
-              >
-                Beranda
-              </button>
+          <div className="md:hidden py-4 border-t-3 border-black">
+            <div className="flex flex-col gap-2">
               <button 
                 onClick={() => scrollToSection('about')}
-                className="text-left px-4 py-2 text-warmgray dark:text-warmgray-light hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-dark-50 rounded-lg font-medium transition-colors"
+                className="text-left px-4 py-3 text-black font-semibold border-2 border-black bg-white hover:bg-brutal-yellow transition-colors"
               >
-                Tentang
+                About
               </button>
               <button 
-                onClick={() => scrollToSection('categories')}
-                className="text-left px-4 py-2 text-warmgray dark:text-warmgray-light hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-dark-50 rounded-lg font-medium transition-colors"
+                onClick={() => scrollToSection('why-visit')}
+                className="text-left px-4 py-3 text-black font-semibold border-2 border-black bg-white hover:bg-brutal-yellow transition-colors"
               >
-                Kategori
+                Why Us
               </button>
               <button 
                 onClick={() => scrollToSection('featured')}
-                className="text-left px-4 py-2 text-warmgray dark:text-warmgray-light hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-dark-50 rounded-lg font-medium transition-colors"
+                className="text-left px-4 py-3 text-black font-semibold border-2 border-black bg-white hover:bg-brutal-yellow transition-colors"
               >
-                Destinasi
+                Featured
+              </button>
+              <button 
+                onClick={() => scrollToSection('categories')}
+                className="text-left px-4 py-3 text-black font-semibold border-2 border-black bg-white hover:bg-brutal-yellow transition-colors"
+              >
+                Categories
               </button>
               <button 
                 onClick={() => scrollToSection('search')}
-                className="mx-4 py-2.5 btn-tropical text-white font-semibold rounded-xl"
+                className="brutal-btn brutal-btn-blue w-full justify-center mt-2"
               >
-                Cari Wisata
+                START
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
               </button>
             </div>
           </div>

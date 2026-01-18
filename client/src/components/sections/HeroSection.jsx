@@ -7,67 +7,80 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center px-4 pt-16 overflow-hidden bg-white dark:bg-dark-100 transition-colors duration-300">
-      {/* Background Decorations - Tropical Blobs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] blob-pink rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] blob-cyan rounded-full blur-3xl"></div>
-        <div className="absolute top-1/4 left-1/3 w-80 h-80 blob-yellow rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 blob-green rounded-full blur-3xl"></div>
-      </div>
-
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-pattern"></div>
+    <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center px-4 pt-20 pb-16 bg-surface-50">
+      {/* Background Grid Pattern */}
+      <div 
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, #000 1px, transparent 1px),
+            linear-gradient(to bottom, #000 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px'
+        }}
+      />
 
       {/* Content */}
       <div className="relative z-10 text-center max-w-5xl mx-auto">
-        {/* Title */}
-        <h1 className="font-heading text-5xl md:text-6xl lg:text-8xl font-extrabold mb-6 leading-tight">
-          <span className="text-charcoal dark:text-white transition-colors">Jelajahi</span>
+        {/* Label */}
+        <div className="brutal-label mb-8">
+          JAKARTA TOURISM RECOMMENDATION SYSTEM
+        </div>
+
+        {/* Main Headline */}
+        <h1 className="text-brutal-headline text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-black mb-6">
+          JAKARTA
           <br />
-          <span className="gradient-text">Pesona Jakarta</span>
+          <span className="text-brutal-blue">UNFILTERED.</span>
         </h1>
 
-        {/* Subtitle */}
-        <p className="text-lg md:text-xl text-warmgray dark:text-warmgray-light mb-12 max-w-2xl mx-auto leading-relaxed">
-          Temukan keindahan budaya, kuliner lezat, dan destinasi wisata menakjubkan 
-          di kota metropolitan terbesar di Indonesia.
+        {/* Subtext */}
+        <p className="font-mono text-lg md:text-xl text-black mb-12 max-w-2xl mx-auto">
+          THE DEFINITIVE GUIDE TO THE CONCRETE JUNGLE.
         </p>
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <button 
             onClick={scrollToSearch}
-            className="px-8 py-4 btn-tropical text-white font-heading font-bold text-lg rounded-2xl flex items-center gap-2"
+            className="brutal-btn brutal-btn-orange text-lg px-8 py-4"
           >
-            Jelajahi Sekarang
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            GET RECOMMENDATIONS
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
           </button>
           <button 
             onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-8 py-4 bg-white dark:bg-dark-50 hover:bg-surface-100 dark:hover:bg-charcoal-light text-charcoal dark:text-white font-heading font-bold text-lg rounded-2xl border-2 border-gray-100 dark:border-gray-700 hover:border-primary-200 transition-all duration-300"
+            className="brutal-btn brutal-btn-white text-lg px-8 py-4"
           >
-            Pelajari Lebih Lanjut
+            LEARN MORE
           </button>
         </div>
 
         {/* Stats */}
-        <div className="flex flex-wrap justify-center gap-8 mt-16">
-          <div className="text-center">
-            <div className="text-4xl font-heading font-bold gradient-text">85+</div>
-            <div className="text-sm text-warmgray dark:text-warmgray-light font-medium mt-1">Destinasi Wisata</div>
+        <div className="flex flex-wrap justify-center gap-6 md:gap-12 mt-16">
+          <div className="brutal-card p-6 text-center min-w-[140px]">
+            <div className="text-4xl font-black text-black font-heading">85+</div>
+            <div className="font-mono text-xs text-black mt-1">DESTINATIONS</div>
           </div>
-          <div className="w-px h-12 bg-gradient-to-b from-primary-200 to-secondary-200 hidden sm:block"></div>
-          <div className="text-center">
-            <div className="text-4xl font-heading font-bold gradient-text-ocean">6</div>
-            <div className="text-sm text-warmgray dark:text-warmgray-light font-medium mt-1">Kategori</div>
+          <div className="brutal-card p-6 text-center min-w-[140px]">
+            <div className="text-4xl font-black text-brutal-blue font-heading">6</div>
+            <div className="font-mono text-xs text-black mt-1">CATEGORIES</div>
           </div>
-          <div className="w-px h-12 bg-gradient-to-b from-secondary-200 to-tropical-green hidden sm:block"></div>
-          <div className="text-center">
-            <div className="text-4xl font-heading font-bold gradient-text-sunset">10M+</div>
-            <div className="text-sm text-warmgray dark:text-warmgray-light font-medium mt-1">Wisatawan/Tahun</div>
+          <div className="brutal-card p-6 text-center min-w-[140px]">
+            <div className="text-4xl font-black text-brutal-orange font-heading">10M+</div>
+            <div className="font-mono text-xs text-black mt-1">TOURISTS/YEAR</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+        <div className="flex flex-col items-center gap-2">
+          <span className="font-mono text-xs text-black">SCROLL</span>
+          <div className="w-6 h-10 border-3 border-black flex items-start justify-center p-1">
+            <div className="w-1.5 h-3 bg-black animate-bounce" />
           </div>
         </div>
       </div>
