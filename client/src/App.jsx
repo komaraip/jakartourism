@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
+import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
-import SearchBar from './components/SearchBar';
-import DestinationDetail from './components/DestinationDetail';
-import RecommendationList from './components/RecommendationList';
+import AboutSection from './components/sections/AboutSection';
+import CategoriesSection from './components/sections/CategoriesSection';
+import FeaturedSection from './components/sections/FeaturedSection';
+import WhyVisitSection from './components/sections/WhyVisitSection';
+import SearchSection from './components/sections/SearchSection';
+import Footer from './components/Footer';
 import { getDestinations, getRecommendations, getDetail } from './api/api';
 
 function App() {
@@ -48,9 +52,9 @@ function App() {
 
       // Scroll to results
       setTimeout(() => {
-        const detailSection = document.getElementById('detail-section');
-        if (detailSection) {
-          detailSection.scrollIntoView({ behavior: 'smooth' });
+        const resultsSection = document.getElementById('search-results');
+        if (resultsSection) {
+          resultsSection.scrollIntoView({ behavior: 'smooth' });
         }
       }, 100);
 
@@ -63,64 +67,62 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section with Search */}
-      <HeroSection>
-        <SearchBar
-          destinations={destinations}
-          onSelect={handleSelectDestination}
-          isLoading={isLoadingDestinations}
-        />
-      </HeroSection>
+    <div className="min-h-screen bg-surface-50">
+      {/* Navigation */}
+      <Navbar />
 
-      {/* Error Message */}
+      {/* Hero Section */}
+      <HeroSection />
+
+      {/* About Section */}
+      <AboutSection />
+
+      {/* Categories Section */}
+      <CategoriesSection />
+
+      {/* Featured Destinations */}
+      <FeaturedSection 
+        destinations={destinations} 
+        onCardClick={handleSelectDestination}
+      />
+
+      {/* Why Visit Section */}
+      <WhyVisitSection />
+
+      {/* Search Section */}
+      <SearchSection
+        destinations={destinations}
+        selectedDestination={selectedDestination}
+        recommendations={recommendations}
+        isLoadingDestinations={isLoadingDestinations}
+        isLoadingRecommendations={isLoadingRecommendations}
+        onSelectDestination={handleSelectDestination}
+      />
+
+      {/* Error Toast */}
       {error && (
-        <div className="max-w-4xl mx-auto px-4 py-4">
-          <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4 flex items-center gap-3">
-            <svg className="w-5 h-5 text-red-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <p className="text-red-300">{error}</p>
+        <div className="fixed bottom-6 right-6 z-50 max-w-md">
+          <div className="modern-card bg-red-50 border-red-100 p-4 flex items-center gap-3 shadow-soft-lg">
+            <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+              <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <p className="text-red-700 font-medium text-sm">{error}</p>
+            <button 
+              onClick={() => setError(null)}
+              className="ml-auto text-red-400 hover:text-red-600"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
           </div>
         </div>
       )}
 
-      {/* Results Section */}
-      <div id="detail-section">
-        {/* Loading State */}
-        {isLoadingRecommendations && (
-          <div className="flex items-center justify-center py-16">
-            <div className="text-center">
-              <div className="spinner mx-auto mb-4"></div>
-              <p className="text-gray-400">Memuat data...</p>
-            </div>
-          </div>
-        )}
-
-        {/* Destination Detail */}
-        {!isLoadingRecommendations && selectedDestination && (
-          <DestinationDetail destination={selectedDestination} />
-        )}
-
-        {/* Recommendations */}
-        {!isLoadingRecommendations && recommendations.length > 0 && (
-          <RecommendationList 
-            recommendations={recommendations} 
-            onCardClick={handleSelectDestination}
-            isLoading={false}
-          />
-        )}
-      </div>
-
       {/* Footer */}
-      <footer className="text-center py-8 mt-8 border-t border-white/5">
-        <p className="text-gray-500 text-sm">
-          Sistem Rekomendasi Wisata Jakarta © 2024
-        </p>
-        <p className="text-gray-600 text-xs mt-1">
-          Menggunakan Content-Based Filtering dengan TF-IDF dan Cosine Similarity
-        </p>
-      </footer>
+      <Footer />
     </div>
   );
 }

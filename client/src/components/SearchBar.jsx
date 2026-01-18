@@ -92,9 +92,9 @@ const SearchBar = ({ destinations, onSelect, isLoading }) => {
     <div className="relative w-full">
       {/* Search Input */}
       <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+        <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
           <svg 
-            className="w-5 h-5 text-gray-400" 
+            className="w-5 h-5 text-primary-400" 
             fill="none" 
             stroke="currentColor" 
             viewBox="0 0 24 24"
@@ -115,11 +115,11 @@ const SearchBar = ({ destinations, onSelect, isLoading }) => {
           onKeyDown={handleKeyDown}
           onFocus={() => query.length > 0 && suggestions.length > 0 && setShowSuggestions(true)}
           placeholder="Cari destinasi wisata... (contoh: Taman Impian Jaya Ancol)"
-          className="w-full pl-12 pr-4 py-4 text-lg bg-white/10 border border-white/20 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent backdrop-blur-sm transition-all duration-300"
+          className="w-full pl-14 pr-5 py-4 text-lg bg-white border-2 border-primary-100 rounded-2xl text-charcoal placeholder-warmgray-light focus-ring shadow-soft transition-all duration-300"
           disabled={isLoading}
         />
         {isLoading && (
-          <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
+          <div className="absolute inset-y-0 right-0 pr-5 flex items-center">
             <div className="spinner w-5 h-5"></div>
           </div>
         )}
@@ -129,27 +129,27 @@ const SearchBar = ({ destinations, onSelect, isLoading }) => {
       {showSuggestions && suggestions.length > 0 && (
         <div 
           ref={suggestionsRef}
-          className="absolute z-50 w-full mt-2 bg-slate-800/95 backdrop-blur-lg border border-white/10 rounded-xl shadow-2xl overflow-hidden"
+          className="absolute z-50 w-full mt-3 bg-white border border-primary-100 rounded-2xl shadow-soft-lg overflow-hidden"
         >
           <ul className="py-2 max-h-80 overflow-y-auto">
             {suggestions.map((dest, index) => (
               <li
                 key={dest.Place_Id}
                 onClick={() => handleSelect(dest)}
-                className={`px-4 py-3 cursor-pointer transition-colors duration-150 flex items-center justify-between ${
+                className={`px-5 py-3 cursor-pointer transition-colors duration-150 flex items-center justify-between ${
                   index === selectedIndex 
-                    ? 'bg-blue-600/30' 
-                    : 'hover:bg-white/5'
+                    ? 'bg-primary-50' 
+                    : 'hover:bg-surface-100'
                 }`}
               >
                 <div className="flex-1">
-                  <div className="text-white font-medium">{dest.Place_Name}</div>
+                  <div className="text-charcoal font-semibold">{dest.Place_Name}</div>
                   <div className="flex items-center gap-2 mt-1">
                     <span className={`text-xs px-2 py-0.5 rounded-full text-white ${getCategoryBadgeClass(dest.Category)}`}>
                       {dest.Category}
                     </span>
-                    <span className="text-sm text-gray-400 flex items-center gap-1">
-                      <svg className="w-3 h-3 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <span className="text-sm text-warmgray flex items-center gap-1">
+                      <svg className="w-3 h-3 text-accent-400" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>
                       {dest.Rating}
@@ -163,7 +163,7 @@ const SearchBar = ({ destinations, onSelect, isLoading }) => {
       )}
 
       {/* Helper Text */}
-      <p className="mt-3 text-sm text-gray-500 text-center">
+      <p className="mt-4 text-sm text-warmgray text-center">
         Pilih destinasi wisata untuk melihat rekomendasi serupa
       </p>
     </div>
