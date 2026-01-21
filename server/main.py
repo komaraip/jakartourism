@@ -139,7 +139,9 @@ async def get_destinations():
             "Category": row['Category'],
             "Description": row['Description'] if pd.notna(row['Description']) else "",
             "Rating": float(row['Rating']) if pd.notna(row['Rating']) else 0,
-            "Price": int(row['Price']) if pd.notna(row['Price']) else 0
+            "Price": int(row['Price']) if pd.notna(row['Price']) else 0,
+            "Lat": float(row['Lat']) if pd.notna(row['Lat']) else None,
+            "Long": float(row['Long']) if pd.notna(row['Long']) else None
         })
     
     return {

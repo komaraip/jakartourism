@@ -3,8 +3,8 @@ import { formatRupiah } from '../api/api';
 const DestinationCard = ({ destination, onClick, compact = false }) => {
   // Compact mode for featured section (smaller cards)
   const cardHeight = compact ? 'h-[240px]' : 'h-[290px]';
-  const titleHeight = compact ? 'h-[48px]' : 'h-[65px]';
-  const descHeight = compact ? 'h-[40px] line-clamp-2' : 'h-[60px] line-clamp-3';
+  const titleHeight = compact ? 'h-[48px]' : 'h-[60px]';
+  const descHeight = compact ? 'h-[40px] line-clamp-2' : 'h-[65px] line-clamp-3';
   const titleSize = compact ? 'text-lg' : 'text-xl';
 
   return (

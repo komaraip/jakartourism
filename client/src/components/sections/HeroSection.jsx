@@ -61,12 +61,12 @@ const HeroSection = () => {
         {/* Stats - Even smaller on tiny screens */}
         <div className="flex flex-row justify-center gap-1.5 xs:gap-2 sm:gap-4 md:gap-6 lg:gap-12 mt-8 xs:mt-10 sm:mt-16">
           <div className="brutal-card p-2 xs:p-3 sm:p-4 md:p-6 text-center flex-1 max-w-[90px] xs:max-w-[100px] sm:max-w-[140px]">
-            <div className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-black font-heading">85+</div>
+            <div className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-black font-heading">80+</div>
             <div className="font-mono text-[8px] xs:text-[9px] sm:text-[10px] md:text-xs text-black mt-0.5 xs:mt-1">PLACES</div>
           </div>
           <div className="brutal-card p-2 xs:p-3 sm:p-4 md:p-6 text-center flex-1 max-w-[90px] xs:max-w-[100px] sm:max-w-[140px]">
             <div className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-brutal-blue font-heading">6</div>
-            <div className="font-mono text-[8px] xs:text-[9px] sm:text-[10px] md:text-xs text-black mt-0.5 xs:mt-1">TYPES</div>
+            <div className="font-mono text-[8px] xs:text-[9px] sm:text-[10px] md:text-xs text-black mt-0.5 xs:mt-1">CATEGORIES</div>
           </div>
           <div className="brutal-card p-2 xs:p-3 sm:p-4 md:p-6 text-center flex-1 max-w-[90px] xs:max-w-[100px] sm:max-w-[140px]">
             <div className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-brutal-orange font-heading">10M+</div>

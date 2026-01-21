@@ -1,4 +1,23 @@
+import { useNavigate, useLocation } from 'react-router-dom';
+
 const Footer = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const scrollToSection = (sectionId) => {
+    // If not on homepage, navigate to homepage first with hash
+    if (location.pathname !== '/') {
+      navigate('/#' + sectionId);
+      return;
+    }
+    
+    // On homepage, scroll to section smoothly
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <footer className="bg-white border-t-4 border-black">
       {/* Main Footer */}
@@ -11,18 +30,36 @@ const Footer = () => {
 
           {/* Links */}
           <div className="flex flex-wrap justify-center gap-6 font-mono text-sm">
-            <a href="#about" className="text-black hover:underline underline-offset-4 decoration-2">
+            <button 
+              onClick={() => scrollToSection('hero')}
+              className="text-black hover:underline underline-offset-4 decoration-2"
+            >
+              HOME
+            </button>
+            <button 
+              onClick={() => scrollToSection('about')}
+              className="text-black hover:underline underline-offset-4 decoration-2"
+            >
               ABOUT
-            </a>
-            <a href="#why-visit" className="text-black hover:underline underline-offset-4 decoration-2">
+            </button>
+            <button 
+              onClick={() => scrollToSection('highlights')}
+              className="text-black hover:underline underline-offset-4 decoration-2"
+            >
               HIGHLIGHTS
-            </a>
-            <a href="#featured" className="text-black hover:underline underline-offset-4 decoration-2">
+            </button>
+            <button 
+              onClick={() => scrollToSection('featured')}
+              className="text-black hover:underline underline-offset-4 decoration-2"
+            >
               FEATURED
-            </a>
-            <a href="#categories" className="text-black hover:underline underline-offset-4 decoration-2">
+            </button>
+            <button 
+              onClick={() => scrollToSection('categories')}
+              className="text-black hover:underline underline-offset-4 decoration-2"
+            >
               CATEGORIES
-            </a>
+            </button>
           </div>
 
           {/* Status */}

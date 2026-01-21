@@ -36,7 +36,7 @@ const reasons = [
 
 const HighlightSection = () => {
   return (
-    <section id="why-visit" className="py-20 px-4 bg-surface-50">
+    <section id="highlights" className="py-20 px-4 bg-surface-50">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-14">

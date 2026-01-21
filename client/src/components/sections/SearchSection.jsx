@@ -12,7 +12,7 @@ const SearchSection = ({
   onRecommendationClick 
 }) => {
   return (
-    <section id="search" className="bg-surface-50">
+    <section id="search" className="bg-surface-50 min-h-[calc(100vh-150px)] pt-16">
       {/* Divider */}
       <div className="brutal-divider" />
       

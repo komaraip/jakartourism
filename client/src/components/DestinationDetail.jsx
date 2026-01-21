@@ -1,4 +1,33 @@
 import { formatRupiah } from '../api/api';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+
+// Fix icon issue
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
+let DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41]
+});
+L.Marker.prototype.options.icon = DefaultIcon;
+
+const createBrutalIcon = () => L.divIcon({
+  className: 'custom-icon',
+  html: `<div style="
+    background-color: #FF4800;
+    width: 24px;
+    height: 24px;
+    border: 3px solid black;
+    transform: rotate(45deg);
+    box-shadow: 4px 4px 0px 0px black;
+  "></div>`,
+  iconSize: [30, 30],
+  iconAnchor: [15, 15],
+  popupAnchor: [0, -20]
+});
 
 const DestinationDetail = ({ destination }) => {
   if (!destination) return null;
@@ -28,6 +57,8 @@ const DestinationDetail = ({ destination }) => {
     }
     return stars;
   };
+
+  const hasCoords = destination.Lat && destination.Long && !isNaN(destination.Lat) && !isNaN(destination.Long);
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -71,16 +102,36 @@ const DestinationDetail = ({ destination }) => {
         </p>
       </div>
 
-      {/* Location Info */}
-      <div className="flex flex-wrap gap-4 pt-4 border-t-3 border-black">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-brutal-blue border-2 border-black flex items-center justify-center">
-            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-          </div>
-          <span className="font-mono font-bold text-black">{destination.City}</span>
+      {/* Location Info & Map */}
+      <div className="pt-4 border-t-3 border-black">
+        <h4 className="font-heading font-black text-lg text-black mb-3 uppercase flex items-center gap-2">
+            LOCATION
+        </h4>
+        
+        <div className="flex flex-col gap-4">
+            {hasCoords && (
+                <div className="h-[250px] w-full border-3 border-black mt-2 relative z-0">
+                     <MapContainer 
+                        center={[destination.Lat, destination.Long]} 
+                        zoom={15} 
+                        scrollWheelZoom={false} 
+                        className="h-full w-full"
+                    >
+                        <TileLayer
+                            attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
+                            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                        />
+                        <Marker 
+                            position={[destination.Lat, destination.Long]}
+                            icon={createBrutalIcon()}
+                        >
+                            <Popup className="brutal-popup">
+                                <span className="font-bold">{destination.Place_Name}</span>
+                            </Popup>
+                        </Marker>
+                    </MapContainer>
+                </div>
+            )}
         </div>
       </div>
     </div>

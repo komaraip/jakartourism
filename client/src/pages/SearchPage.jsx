@@ -1,36 +1,21 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Modal from './components/Modal';
-import DestinationDetail from './components/DestinationDetail';
-import HomePage from './pages/HomePage';
-import SearchPage from './pages/SearchPage';
-import { getDestinations, getDetail } from './api/api';
+import SearchSection from '../components/sections/SearchSection';
+import Modal from '../components/Modal';
+import DestinationDetail from '../components/DestinationDetail';
+import { getDestinations, getRecommendations, getDetail } from '../api/api';
 
-function App() {
+const SearchPage = () => {
   const [destinations, setDestinations] = useState([]);
+  const [selectedDestination, setSelectedDestination] = useState(null);
+  const [recommendations, setRecommendations] = useState([]);
   const [isLoadingDestinations, setIsLoadingDestinations] = useState(true);
+  const [isLoadingRecommendations, setIsLoadingRecommendations] = useState(false);
   const [error, setError] = useState(null);
-  const location = useLocation();
   
-  // Modal state for destination card clicks on home page
+  // Modal state for recommendation card clicks
   const [modalDestination, setModalDestination] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoadingModal, setIsLoadingModal] = useState(false);
-
-  // Handle hash-based scrolling when navigating from other pages
-  useEffect(() => {
-    if (location.hash) {
-      const sectionId = location.hash.replace('#', '');
-      setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
-    }
-  }, [location]);
 
   // Load destinations on mount
   useEffect(() => {
@@ -51,8 +36,38 @@ function App() {
     loadDestinations();
   }, []);
 
-  // Handle card click - opens modal
-  const handleCardClick = async (placeName) => {
+  // Handle initial search - displays inline in SearchSection
+  const handleSelectDestination = async (placeName) => {
+    try {
+      setIsLoadingRecommendations(true);
+      setError(null);
+
+      // Fetch destination detail
+      const detail = await getDetail(placeName);
+      setSelectedDestination(detail);
+
+      // Fetch recommendations
+      const recData = await getRecommendations(placeName);
+      setRecommendations(recData.recommendations);
+
+      // Scroll to results
+      setTimeout(() => {
+        const resultsSection = document.getElementById('search-results');
+        if (resultsSection) {
+          resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+
+    } catch (err) {
+      setError('Failed to load recommendations. Please try again.');
+      console.error(err);
+    } finally {
+      setIsLoadingRecommendations(false);
+    }
+  };
+
+  // Handle recommendation card click - opens modal
+  const handleRecommendationClick = async (placeName) => {
     try {
       setIsModalOpen(true);
       setIsLoadingModal(true);
@@ -77,25 +92,19 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-surface-50">
-      {/* Navigation */}
-      <Navbar />
+    <>
+      {/* Search Section */}
+      <SearchSection
+        destinations={destinations}
+        selectedDestination={selectedDestination}
+        recommendations={recommendations}
+        isLoadingDestinations={isLoadingDestinations}
+        isLoadingRecommendations={isLoadingRecommendations}
+        onSelectDestination={handleSelectDestination}
+        onRecommendationClick={handleRecommendationClick}
+      />
 
-      {/* Routes */}
-      <Routes>
-        <Route 
-          path="/" 
-          element={
-            <HomePage 
-              destinations={destinations} 
-              onCardClick={handleCardClick} 
-            />
-          } 
-        />
-        <Route path="/search" element={<SearchPage />} />
-      </Routes>
-
-      {/* Destination Modal - for card clicks on home page */}
+      {/* Destination Modal - for recommendation card clicks */}
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         {isLoadingModal ? (
           <div className="flex items-center justify-center py-16">
@@ -130,11 +139,8 @@ function App() {
           </div>
         </div>
       )}
-
-      {/* Footer */}
-      <Footer />
-    </div>
+    </>
   );
-}
+};
 
-export default App;
+export default SearchPage;
