@@ -53,12 +53,6 @@ const Navbar = () => {
             >
               Explore
             </button>
-            <button 
-              onClick={() => scrollToSection('categories')}
-              className="text-black font-semibold hover:underline underline-offset-4 decoration-2 transition-all"
-            >
-              Categories
-            </button>
             <Link 
               to="/search"
               className="brutal-btn brutal-btn-blue"
@@ -107,12 +101,6 @@ const Navbar = () => {
               >
                 Explore
               </button>
-              <button 
-                onClick={() => scrollToSection('categories')}
-                className="text-left px-4 py-3 text-black font-semibold border-2 border-black bg-white hover:bg-brutal-yellow transition-colors"
-              >
-                Categories
-              </button>
               <Link 
                 to="/search"
                 className="brutal-btn brutal-btn-blue w-full justify-center mt-2"
@@ -132,4 +120,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
